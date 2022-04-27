@@ -1,0 +1,15 @@
+
+
+div.reel input[type=radio] {
+    display:none;
+}
+
+div.reel input:checked + label {
+    color: #fff;
+    background-color: #C00000;
+}
+
+div.reel label {
+    display: block;
+    font-size:400%;
+}

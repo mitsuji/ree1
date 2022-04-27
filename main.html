@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+	<meta charset="UTF-8">
+	<title>ree1</title>
+    <link rel="stylesheet" type="text/css" href="./main.css" />
+    <script type="text/javascript" src="https://unpkg.com/vue@3.2.31/dist/vue.global.prod.js"></script>
+    <script type="module" src="./main.js"></script>
+  </head>
+  <body id="app">
+	<h1>ree1</h1>
+	<form v-on:submit="run">
+      <button type="submit" class="run">run</button>
+      <div class="reel">
+        <template v-for="candidate in candidates">
+          <input type="radio" v-bind:id="candidate.key"  v-bind:value="candidate.key" v-model="selection">
+          <label v-bind:for="candidate.key">
+            <input type="checkbox" v-on:click="filter(candidate.key,$event)">
+            {{candidate.key}}
+          </label>
+        </template>
+      </div>
+    </form>
+  </body>
+</html>
+  
