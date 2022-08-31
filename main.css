@@ -1,3 +1,10 @@
+div.reel {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  height:500px;
+}
 
 div.reel input[type=radio] {
     display:none;
@@ -8,11 +15,25 @@ div.reel input:checked + label {
     background-color: #C00000;
 }
 
+
+label.blink {
+  animation: blinkAnimation .33s infinite alternate;
+}
+@keyframes blinkAnimation {
+    0% {
+        color: white;
+        background-color: #C00000;
+    }
+    100% {
+        color: black;
+        background-color: white;
+    }
+}
+
 div.reel label {
     display: block;
     font-size:400%;
 }
-
 
 div.modal-overlay {
     z-index:10;

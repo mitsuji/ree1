@@ -53,9 +53,9 @@ const Ree1App = {
     data () {
         return {
 //            candidates : [],
-            candidates : [{key:"テスト1",nominate:true},
-                          {key:"テスト2",nominate:true},
-                          {key:"テスト3",nominate:true}],
+            candidates : [{key:"Candidate1",nominate:true},
+                          {key:"Candidate2",nominate:true},
+                          {key:"Candidate3",nominate:true}],
             selection : "",
             running : false,
         };
@@ -77,12 +77,12 @@ const Ree1App = {
             this.running = true;
 
             let nominates = this.candidates.filter((cand)=>{ return cand.nominate; });
-            for(let i = 0; i < 8; i++) {
+            for(let i = 0; i < 4; i++) {
                 let active = 0;
                 for (; active < nominates.length; active++) {
                     this.selection = nominates[active].key;
                     var x;
-                    if (i < 6) {
+                    if (i < 3) {
                         x = 100 + (i * 10);
                     } else {
                         x = 100 + (i * 50);
@@ -96,14 +96,10 @@ const Ree1App = {
             
             // [TODO] blink selected item
             let elemLabel = document.querySelector("#" + this.selection + " + label");
-            for(let i = 0; i < 3; i++) {
-                elemLabel.style.color = "black";
-                elemLabel.style.backgroundColor = "white";
-                await sleep(300);
-                elemLabel.style.color = "white";
-                elemLabel.style.backgroundColor = "#C00000";
-                await sleep(300);
-            }
+            elemLabel.classList.add("blink");
+            await sleep(2330);
+            elemLabel.classList.remove("blink");
+
         },
         filter (candidate, event) {
             if(this.running) {
@@ -134,6 +130,10 @@ const Ree1App = {
                 this.candidates.push({key:cand,nominate:true});
             });
             this.selection = this.candidates[0].key;
+
+            // [MEMO] reset checkboxes
+            let checkboxes = document.querySelectorAll("div.reel input[type=checkbox]");
+            checkboxes.forEach((elem) => { elem.checked = false; });
         },
     },
     components: {
