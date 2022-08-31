@@ -10,7 +10,8 @@
   <body id="app">
 	<h1>ree1</h1>
 	<form v-on:submit="run">
-      <button type="submit" class="run">run</button>
+      <button type="submit" class="run">run</button>&nbsp;
+      <button type="button" class="configure" v-on:click="openConfigureForm">configure</button>
       <div class="reel">
         <template v-for="candidate in candidates">
           <input type="radio" v-bind:id="candidate.key"  v-bind:value="candidate.key" v-model="selection">
@@ -21,6 +22,7 @@
         </template>
       </div>
     </form>
+    <configure-form ref="configureForm"></configure-form>
   </body>
 </html>
   
