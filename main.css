@@ -32,7 +32,13 @@ label.blink {
 
 div.reel label {
     display: block;
-    font-size:400%;
+    font-size: 400%;
+}
+
+div.reel input[type=checkbox] {
+    display:inline-block;
+    transform: scale(4);
+    margin: 0 10px 0 0;
 }
 
 div.modal-overlay {
