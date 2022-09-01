@@ -94,19 +94,24 @@ const Ree1App = {
             setUiStatus(true);
 
             for(let i = 0; i < 4; i++) {
-                let active = 0;
-                for (; active < nominates.length; active++) {
+                for (let active = 0; active < nominates.length; active++) {
                     this.selection = nominates[active].key;
                     var x;
                     if (i < 3) {
-                        x = 100 + (i * 10);
+                        x = 100 + (i * 8);
                     } else {
                         x = 100 + (i * 50);
                     }
                     await sleep(x);
                 }
             }
+
             let iselection = getRandomInt(nominates.length-1);
+            for (let active = 0; active < iselection; active++) {
+                this.selection = nominates[active].key;
+                var x = 100 + (4 * 80);
+                await sleep(x);
+            }
             this.selection = nominates[iselection].key
             
             // [MEMO] blink selected item
