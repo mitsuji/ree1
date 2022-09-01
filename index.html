@@ -2,6 +2,7 @@
 <html lang="ja">
   <head>
 	<meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
 	<title>ree1</title>
     <link rel="stylesheet" type="text/css" href="./main.css" />
     <script type="text/javascript" src="https://unpkg.com/vue@3.2.31/dist/vue.global.prod.js"></script>
@@ -10,13 +11,15 @@
   <body id="app">
 	<h1>ree1</h1>
 	<form v-on:submit="run">
-      <button type="submit" class="run">run</button>&nbsp;
-      <button type="button" class="configure" v-on:click="openConfigureForm">configure</button>
+      <div>
+        <button type="submit" class="run">Run</button>&nbsp;
+        <button type="button" class="configure" v-on:click="openConfigureForm">Configure</button>
+      </div>
       <div class="reel">
         <template v-for="candidate in candidates">
           <input type="radio" v-bind:id="candidate.key"  v-bind:value="candidate.key" v-model="selection">
           <label v-bind:for="candidate.key">
-            <input type="checkbox" v-on:click="filter(candidate.key,$event)">
+            <input type="checkbox" v-model="candidate.nominate">
             {{candidate.key}}
           </label>
         </template>

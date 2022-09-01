@@ -36,18 +36,35 @@ const ConfigureForm = {
 <div class="modal-overlay" v-show="showModal">
   <div class="modal-content">
 <form v-on:submit="submit">
-  <div>
-    <textarea v-model="candidatesText" cols="60" rows="40"></textarea>
-  </div>
-  <div>
-    <button type="submit" class="submit">submit</button>&nbsp;
-    <button class="close" v-on:click="close">cancel</button>
+  <div style="width:fit-content;">
+    <div>
+      <textarea v-model="candidatesText" cols="40" rows="20"></textarea>
+    </div>
+    <div style="text-align:right;">
+      <button type="submit" class="submit">OK</button>&nbsp;
+      <button class="close" v-on:click="close">Cancel</button>
+    </div>
   </div>
 </form>
   </div>
 </div>
 `
 }
+
+function setUiStatus (running) {
+    document.querySelector("button.run").disabled = running;
+    document.querySelector("button.configure").disabled = running;
+    let checkboxes = document.querySelectorAll("div.reel input[type=checkbox]");
+    checkboxes.forEach((elem) => { elem.disabled = running; });
+}
+
+async function blinkSelected (selection) {
+    let elemLabel = document.querySelector("#" + selection + " + label");
+    elemLabel.classList.add("blink");
+    await sleep(2330);
+    elemLabel.classList.remove("blink");
+}
+
 
 const Ree1App = {
     data () {
@@ -68,15 +85,14 @@ const Ree1App = {
     methods: {
         async run (event) {
             event.preventDefault();
-            if(this.candidates.length === 0) {
-                return;
-            }
-            if(this.running) {
-                return;
-            }
-            this.running = true;
-
             let nominates = this.candidates.filter((cand)=>{ return cand.nominate; });
+            if(nominates.length === 0) {
+                return;
+            }
+
+            // [MEMO] disable UI
+            setUiStatus(true);
+
             for(let i = 0; i < 4; i++) {
                 let active = 0;
                 for (; active < nominates.length; active++) {
@@ -92,48 +108,29 @@ const Ree1App = {
             }
             let iselection = getRandomInt(nominates.length-1);
             this.selection = nominates[iselection].key
-            this.running = false;
             
-            // [TODO] blink selected item
-            let elemLabel = document.querySelector("#" + this.selection + " + label");
-            elemLabel.classList.add("blink");
-            await sleep(2330);
-            elemLabel.classList.remove("blink");
+            // [MEMO] blink selected item
+            blinkSelected (this.selection);
+
+            // [MEMO] enable UI again
+            setUiStatus(false);
 
         },
-        filter (candidate, event) {
-            if(this.running) {
-                event.preventDefault();
-                return;
-            }
-            this.candidates.forEach((cand) => {
-                if(cand.key === candidate) {
-                    cand.nominate = !event.target.checked;
-                }
-            });
-        },
         openConfigureForm () {
-            if(this.running) {
-                return;
-            }
             this.$refs.configureForm.open(this.candidates);
-       },
+        },
         setCandidates (candidatesText) {
             this.candidates = [];
-            let cands = candidatesText.trim().split(/\n/);
-            let candsSet = new Set();
+            let candidateKeys = candidatesText.trim().split(/\n/);
+            let candidateKeysSet = new Set();
             // [MEMO] remove duplication
-            cands.forEach((cand) => {
-                candsSet.add(cand);
+            candidateKeys.forEach((cand) => {
+                candidateKeysSet.add(cand);
             });
-            candsSet.forEach((cand) => {
+            candidateKeysSet.forEach((cand) => {
                 this.candidates.push({key:cand,nominate:true});
             });
             this.selection = this.candidates[0].key;
-
-            // [MEMO] reset checkboxes
-            let checkboxes = document.querySelectorAll("div.reel input[type=checkbox]");
-            checkboxes.forEach((elem) => { elem.checked = false; });
         },
     },
     components: {
