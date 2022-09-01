@@ -110,7 +110,7 @@ const Ree1App = {
             this.selection = nominates[iselection].key
             
             // [MEMO] blink selected item
-            blinkSelected (this.selection);
+            await blinkSelected (this.selection);
 
             // [MEMO] enable UI again
             setUiStatus(false);
