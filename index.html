@@ -1,17 +1,17 @@
 <!DOCTYPE html>
 <html lang="ja">
   <head>
-	<meta charset="UTF-8">
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-	<title>ree1</title>
+    <title>ree1 (Lottery Machine)</title>
     <link rel="stylesheet" type="text/css" href="./main.css" />
     <script type="text/javascript" src="https://unpkg.com/vue@3.2.31/dist/vue.global.prod.js"></script>
     <script type="module" src="./main.js"></script>
   </head>
   <body id="app">
-	<h1>ree1</h1>
-	<form v-on:submit="run">
-      <div>
+    <h1>ree1 (Lottery Machine)</h1>
+    <form v-on:submit="run">
+      <div class="control">
         <button type="submit" class="run">Run</button>&nbsp;
         <button type="button" class="configure" v-on:click="openConfigureForm">Configure</button>
       </div>
@@ -19,7 +19,7 @@
         <template v-for="candidate in candidates">
           <input type="radio" v-bind:id="candidate.key"  v-bind:value="candidate.key" v-model="selection">
           <label v-bind:for="candidate.key">
-            <input type="checkbox" v-model="candidate.nominate">
+            <input type="checkbox" v-model="candidate.nominate" title="Check this if the item nominated.">
             {{candidate.key}}
           </label>
         </template>
@@ -28,4 +28,3 @@
     <configure-form ref="configureForm"></configure-form>
   </body>
 </html>
-  

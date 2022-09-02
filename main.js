@@ -28,6 +28,9 @@ const ConfigureForm = {
         },
         submit (event) {
             event.preventDefault();
+            if (this.candidatesText.trim().length === 0) {
+                return;
+            }
             this.$root.setCandidates(this.candidatesText);
             this.showModal = false;
         },
@@ -59,7 +62,7 @@ function setUiStatus (running) {
 }
 
 async function blinkSelected (selection) {
-    let elemLabel = document.querySelector("#" + selection + " + label");
+    let elemLabel = document.querySelector("#" + CSS.escape(selection) + " + label");
     elemLabel.classList.add("blink");
     await sleep(2330);
     elemLabel.classList.remove("blink");

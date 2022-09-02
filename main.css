@@ -1,3 +1,15 @@
+
+div.control button.run {
+    width:200px;
+    height:40px;
+}
+
+div.control button.configure {
+    width:200px;
+    height:40px;
+}
+
+
 div.reel {
   display: flex;
   flex-direction: column;
@@ -18,7 +30,7 @@ div.reel input:checked + label {
 
 
 label.blink {
-  animation: blinkAnimation .33s infinite alternate;
+    animation: blinkAnimation .33s infinite alternate;
 }
 @keyframes blinkAnimation {
     0% {
@@ -64,5 +76,4 @@ div.modal-content {
     padding: 1em;
     background:#fff;
 }
-
 
